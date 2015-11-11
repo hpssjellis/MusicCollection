@@ -1,4 +1,4 @@
-from midi_composer import Composer
+from midi_composer import Composer, FibonacciNumber
 '''
 '__doc__', '__init__', '__module__', 'addControllerEvent', 'addNote', 'addProgramChange', 'addSysEx', 'addTempo',
 'addTrackName', 'addUniversalSysEx', 'changeNoteTuning', 'close', 'closed', 'findOrigin', 'header', 'numTracks',
@@ -25,6 +25,7 @@ MyMIDI.addTempo(track, start_time, 120)
 PLAYGROUND = "Chords"
 if __name__ == "__main__" and PLAYGROUND == "Chords":
     import random
+    f = FibonacciNumber()
     # Create seed base note with same duration
     channel = 0
     base_note = 60
@@ -33,22 +34,26 @@ if __name__ == "__main__" and PLAYGROUND == "Chords":
     # get a composer
     c = Composer()
     # create a major note
-    major_3 = c.Major3(base_note, float(random.randint(1, 16)) / 2,
-                       float(random.randint(1, 16)) / 2,
-                       float(random.randint(1, 16)) / 2)
+    # major_3 = c.Major3(base_note, float(random.randint(1, 16)) / 2,
+    #                    float(random.randint(1, 16)) / 2,
+    #                    float(random.randint(1, 16)) / 2)
+    major_3 = c.Major3(base_note, duration, duration, duration)
     random.seed(time.time())
     # 12 bars test file
     for bar in range(96):
-        if base_note > 84:
-            base_note %= 60
+        base_note = f.next()
+        if base_note > 128:
+            base_note %= 127
+        print base_note, track, channel
+        # major_3 = c.Major3(base_note, float(random.randint(1, 16)) / 2,
+        #                    float(random.randint(1, 16)) / 2,
+        #                    float(random.randint(1, 16)) / 2)
+        major_3 = c.Major3(base_note, duration, duration, duration)
         MyMIDI.addNote(track, channel, major_3[0][0], start_time, major_3[0][1], volume)
         MyMIDI.addNote(track, channel, major_3[1][0], start_time, major_3[1][1], volume)
         MyMIDI.addNote(track, channel, major_3[2][0], start_time, major_3[2][1], volume)
-        base_note = random.randint(20, 120)
-        major_3 = c.Major3(base_note, float(random.randint(1, 16)) / 2,
-                           float(random.randint(1, 16)) / 2,
-                           float(random.randint(1, 16)) / 2)
         start_time += 0.5
+
 
 if __name__ == "__main__" and PLAYGROUND == "SingleNote":
 

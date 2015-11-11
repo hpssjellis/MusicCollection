@@ -13,3 +13,19 @@ should be performed in other form (representation).
 Midi wrapper should be converter
 Composer contains algorithms
 """
+
+class FibonacciNumber(object):
+    def __init__(self, start_1=0, start_2=1):
+        self.f1 = start_1
+        self.f2 = start_2
+
+    def next(self):
+        f3 = self.f1 + self.f2
+        self.f1, self.f2 = self.f2, f3
+        return f3
+
+
+if __name__ == "__main__":
+    f = FibonacciNumber()
+    for i in range(10):
+        print f.next()
