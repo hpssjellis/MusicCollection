@@ -1,35 +1,15 @@
-############################################################################
-# A sample program to create a single-track MIDI file, add a note,
-# and write to disk.
-############################################################################
+class Composer(object):
+    def __init__(self):
+        pass
 
-#Import the library
-from midiutil.MidiFile import MIDIFile
-from datetime import datetime
-time_stamp = datetime.now().__str__()
-time_stamp = time_stamp.split(".", 1)[0]
-time_stamp = time_stamp.replace(" ", "_").replace(":", "_")
-# Create the MIDIFile Object
-MyMIDI = MIDIFile(1)
+    def Major3(self, base_note, base_d, mid_d, high_d):
+        m3 = ((base_note, base_d), (base_note + 4, mid_d), (base_note + 7, high_d))
+        return m3
 
-# Add track name and tempo. The first argument to addTrackName and
-# addTempo is the time to write the event.
-track = 0
-time = 0
-MyMIDI.addTrackName(track, time, "Sample Track")
-MyMIDI.addTempo(track, time, 120)
-
-# Add a note. addNote expects the following information:
-channel = 0
-pitch = 60
-duration = 1
-volume = 100
-
-# Now add the note.
-MyMIDI.addNote(track,channel,pitch,time,duration,volume)
-
-# And write it to disk.
-binfile = open("output/output"+time_stamp+".mid", 'wb')
-MyMIDI.writeFile(binfile)
-binfile.close()
-
+"""
+Guide line:
+The Midi library is a interface to create Midi file, all composing and editing
+should be performed in other form (representation).
+Midi wrapper should be converter
+Composer contains algorithms
+"""
