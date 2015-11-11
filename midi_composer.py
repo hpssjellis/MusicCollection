@@ -16,8 +16,8 @@ MyMIDI = MIDIFile(1)
 # addTempo is the time to write the event.
 track = 0
 time = 0
-MyMIDI.addTrackName(track,time,"Sample Track")
-MyMIDI.addTempo(track,time, 120)
+MyMIDI.addTrackName(track, time, "Sample Track")
+MyMIDI.addTempo(track, time, 120)
 
 # Add a note. addNote expects the following information:
 channel = 0
