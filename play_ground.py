@@ -1,4 +1,5 @@
-from midi_composer import Composer, FibonacciNumber
+from midi_composer import FibonacciNumber
+from chords_database import Chords
 '''
 '__doc__', '__init__', '__module__', 'addControllerEvent', 'addNote', 'addProgramChange', 'addSysEx', 'addTempo',
 'addTrackName', 'addUniversalSysEx', 'changeNoteTuning', 'close', 'closed', 'findOrigin', 'header', 'numTracks',
@@ -32,12 +33,12 @@ if __name__ == "__main__" and PLAYGROUND == "Chords":
     duration = 2
     volume = 100
     # get a composer
-    c = Composer()
+    c = Chords()
     # create a major note
     # major_3 = c.Major3(base_note, float(random.randint(1, 16)) / 2,
     #                    float(random.randint(1, 16)) / 2,
     #                    float(random.randint(1, 16)) / 2)
-    major_3 = c.Major3(base_note, duration, duration, duration)
+    major_3 = c.Major3(base_note)
     random.seed(time.time())
     # 12 bars test file
     for bar in range(96):
@@ -48,10 +49,10 @@ if __name__ == "__main__" and PLAYGROUND == "Chords":
         # major_3 = c.Major3(base_note, float(random.randint(1, 16)) / 2,
         #                    float(random.randint(1, 16)) / 2,
         #                    float(random.randint(1, 16)) / 2)
-        major_3 = c.Major3(base_note, duration, duration, duration)
-        MyMIDI.addNote(track, channel, major_3[0][0], start_time, major_3[0][1], volume)
-        MyMIDI.addNote(track, channel, major_3[1][0], start_time, major_3[1][1], volume)
-        MyMIDI.addNote(track, channel, major_3[2][0], start_time, major_3[2][1], volume)
+        major_3 = c.Major3(base_note)
+        MyMIDI.addNote(track, channel, major_3[0], start_time, duration, volume)
+        MyMIDI.addNote(track, channel, major_3[1], start_time, duration, volume)
+        MyMIDI.addNote(track, channel, major_3[2], start_time, duration, volume)
         start_time += 0.5
 
 
