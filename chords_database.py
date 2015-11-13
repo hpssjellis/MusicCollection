@@ -6,8 +6,8 @@ class ChordsSet(object):
         self.base_note = 60
         self.shift = 0
         self.chords_set = {
-            "Major3": (self.shift,  self.shift + 4, self.shift + 7),
-            "minor3": (self.shift,  self.shift + 3, self.shift + 7),
+            "M3": (self.shift,  self.shift + 4, self.shift + 7),
+            "m3": (self.shift,  self.shift + 3, self.shift + 7),
             "dim": (self.shift,  self.shift + 3,  self.shift + 6),
             "aug": (self.shift,  self.shift + 4,  self.shift + 8),
             "sus2": (self.shift,  self.shift + 4, self.shift + 7, self.shift + 14),
@@ -39,7 +39,12 @@ class ChordsSet(object):
         if chord is None:
             raise exceptions.AttributeError("need pass chord name or reference number")
         elif type(chord) is str:
-            return self.chords_set[chord]
+            # print len(self.chords_set), self.length, chord, len(self.chords_set.values())
+            chord_template = self.chords_set[chord]
+            ret_chord = [None] * len(chord_template)
+            for i in range(len(chord_template)):
+                ret_chord[i] = chord_template[i] + base_note
+            return tuple(ret_chord)
         elif type(chord) is int:
             # print len(self.chords_set), self.length, chord, len(self.chords_set.values())
             chord_template = self.chords_set.values()[chord]
@@ -50,11 +55,11 @@ class ChordsSet(object):
 
     def Major3(self, base_note):
         self.base_note = base_note
-        return self.chords_set["Major3"]
+        return self.chords_set["M3"]
 
     def minor3(self, base_note):
         self.base_note = base_note
-        return self.chords_set["minor3"]
+        return self.chords_set["m3"]
 
     def dim(self, base_note):
         self.base_note = base_note
@@ -165,6 +170,12 @@ NOTE = {
 }
 
 KEY = {
-    "C": 0, "C#": 1, "Db": 1, "D": 2, "D#": 3, "Eb": 3, "E": 4, "F": 5, "F#": 6, "Gb": 6, "G":7, "G#": 8, "Ab": 8,
-    "A": 9, "A#": 10, "Bb": 10, "B": 11,
+    "C": 0, "C#": 1, "Db": 1, "D": 2, "D#": 3, "Eb": 3, "E": 4, "F": 5, "F#": 6, "Gb": 6, "G": 7, "G#": 8, "Ab": 8,
+    "A": 9, "A#": 10, "Bb": 10, "B": 11
 }
+
+REVERSE_KEY_LOOK_UP = {}
+
+for notation, pitch in KEY.iteritems():
+    REVERSE_KEY_LOOK_UP[pitch] = notation
+
