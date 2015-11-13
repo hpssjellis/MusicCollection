@@ -7,7 +7,6 @@ This project includes:
 
 
 
-| Mapping: MIDI Note Numbers <=> IPN Notes |  |  |  |  |  |  |  |  |  |  |  | 
 
 
 |Octave/Note Numbers|   C |C#/Db|  D  |D#/Eb|  E  |  F  |F#/Gb|  G  |G#/Ab|  A  |A#/Bb|  B  |
@@ -26,7 +25,4 @@ This project includes:
 
 
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+
