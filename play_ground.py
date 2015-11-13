@@ -1,12 +1,12 @@
-from midi_composer import FibonacciNumber
-from chords_database import Chords
+from midi_composer import FibonacciNumber, ChordsPatternGenerator
+from chords_database import ChordsSet, NOTE, KEY
 '''
 '__doc__', '__init__', '__module__', 'addControllerEvent', 'addNote', 'addProgramChange', 'addSysEx', 'addTempo',
 'addTrackName', 'addUniversalSysEx', 'changeNoteTuning', 'close', 'closed', 'findOrigin', 'header', 'numTracks',
 'shiftTracks', 'tracks', 'writeFile'
 '''
 
-#Import the library
+# Import midi library
 from midiutil.MidiFile import MIDIFile
 import time
 from datetime import datetime
@@ -22,71 +22,42 @@ track = 0
 start_time = 0
 MyMIDI.addTrackName(track, start_time, "Sample Track")
 MyMIDI.addTempo(track, start_time, 120)
+import random
+f = FibonacciNumber()
+# Create seed base note with same duration
+channel = 0
+base_note = 60
+duration = 2
+volume = 100
+# get a composer
+code_set = ChordsSet()
+c_gen = ChordsPatternGenerator()
+set_length = code_set.length
+LENGTH = 40
+PLAYGROUND = "Melody"
+if __name__ == "__main__" and PLAYGROUND == "Chords_Random":
+    for bar in range(LENGTH):
+        base_note = c_gen.gen_single_random_base_note(40, 70)
+        chord = code_set.get_chord(base_note, random.randint(0, set_length - 1))
+        for note in chord:
+            # print note
+            MyMIDI.addNote(track, channel, note, start_time, duration, volume)
+        start_time += duration
 
-PLAYGROUND = "Chords"
-if __name__ == "__main__" and PLAYGROUND == "Chords":
-    import random
-    f = FibonacciNumber()
-    # Create seed base note with same duration
-    channel = 0
-    base_note = 60
-    duration = 2
-    volume = 100
-    # get a composer
-    c = Chords()
-    # create a major note
-    # major_3 = c.Major3(base_note, float(random.randint(1, 16)) / 2,
-    #                    float(random.randint(1, 16)) / 2,
-    #                    float(random.randint(1, 16)) / 2)
-    major_3 = c.Major3(base_note)
-    random.seed(time.time())
-    # 12 bars test file
-    for bar in range(96):
-        base_note = f.next()
-        if base_note > 128:
-            base_note %= 127
-        print base_note, track, channel
-        # major_3 = c.Major3(base_note, float(random.randint(1, 16)) / 2,
-        #                    float(random.randint(1, 16)) / 2,
-        #                    float(random.randint(1, 16)) / 2)
-        major_3 = c.Major3(base_note)
-        MyMIDI.addNote(track, channel, major_3[0], start_time, duration, volume)
-        MyMIDI.addNote(track, channel, major_3[1], start_time, duration, volume)
-        MyMIDI.addNote(track, channel, major_3[2], start_time, duration, volume)
+if __name__ == "__main__" and PLAYGROUND == "Chords_Inkey":
+    for bar in range(LENGTH):
+        base_note = c_gen.gen_in_key_random_note(KEY["C"], 40, 70)
+        chord = code_set.get_chord(base_note, random.randint(0, set_length - 1))
+        for note in chord:
+            # print note
+            MyMIDI.addNote(track, channel, note, start_time, duration, volume)
+        start_time += duration
+
+if __name__ == "__main__" and PLAYGROUND == "Melody":
+    for bar in range(LENGTH):
+        note = c_gen.gen_in_key_random_note(KEY["C"], 40, 70)
+        MyMIDI.addNote(track, channel, note, start_time, duration, volume)
         start_time += 0.5
-
-
-if __name__ == "__main__" and PLAYGROUND == "SingleNote":
-
-
-    # Add a note. addNote expects the following information:
-    channel = 0
-    pitch = 60
-    duration = 1
-    volume = 100
-    # Now add the note.
-    for beat in range(48):
-        if pitch > 84:
-            pitch = 60
-        MyMIDI.addNote(track, channel, pitch, start_time, duration, volume)
-        pitch += 0
-        start_time += 1
-
-    # add chords
-    base_note = 53
-    mid_note = 57
-    chords_duration = 4
-    chords_time = 0
-    for bar in range(12):
-        if base_note > 84:
-            base_note %= 60
-        MyMIDI.addNote(track, channel, base_note, chords_time, duration, volume)
-        MyMIDI.addNote(track, channel, mid_note, chords_time, duration, volume)
-        base_note += 0
-        mid_note += 0
-        chords_time += 4
-
-
 
 # And write it to disk.
 binfile = open("output/output"+time_stamp+".mid", 'wb')
