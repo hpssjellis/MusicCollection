@@ -1,4 +1,5 @@
-from midi_composer import Composer, FibonacciNumber
+from midi_composer import FibonacciNumber
+from chords_database import Chords
 '''
 '__doc__', '__init__', '__module__', 'addControllerEvent', 'addNote', 'addProgramChange', 'addSysEx', 'addTempo',
 'addTrackName', 'addUniversalSysEx', 'changeNoteTuning', 'close', 'closed', 'findOrigin', 'header', 'numTracks',
@@ -32,7 +33,7 @@ if __name__ == "__main__" and PLAYGROUND == "Chords":
     duration = 2
     volume = 100
     # get a composer
-    c = Composer()
+    c = Chords()
     # create a major note
     # major_3 = c.Major3(base_note, float(random.randint(1, 16)) / 2,
     #                    float(random.randint(1, 16)) / 2,
