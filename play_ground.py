@@ -31,12 +31,12 @@ duration = 2
 volume = 100
 # get a composer
 code_set = ChordsSet()
-c_gen = ChordsPatternGenerator()
+c_gen = ChordsPatternGenerator(seed=time.ctime())
 set_length = code_set.length
 LENGTH = 40
 PLAYGROUND = "Melody"
 if __name__ == "__main__" and PLAYGROUND == "Chords_Random":
-    for bar in range(LENGTH):
+    for number_notes in range(LENGTH):
         base_note = c_gen.gen_single_random_base_note(40, 70)
         chord = code_set.get_chord(base_note, random.randint(0, set_length - 1))
         for note in chord:
@@ -45,7 +45,7 @@ if __name__ == "__main__" and PLAYGROUND == "Chords_Random":
         start_time += duration
 
 if __name__ == "__main__" and PLAYGROUND == "Chords_Inkey":
-    for bar in range(LENGTH):
+    for number_notes in range(LENGTH):
         base_note = c_gen.gen_in_key_random_note(KEY["C"], 40, 70)
         chord = code_set.get_chord(base_note, random.randint(0, set_length - 1))
         for note in chord:
@@ -54,7 +54,7 @@ if __name__ == "__main__" and PLAYGROUND == "Chords_Inkey":
         start_time += duration
 
 if __name__ == "__main__" and PLAYGROUND == "Melody":
-    for bar in range(LENGTH):
+    for number_notes in range(LENGTH):
         note = c_gen.gen_in_key_random_note(KEY["C"], 40, 70)
         MyMIDI.addNote(track, channel, note, start_time, duration, volume)
         start_time += 0.5
