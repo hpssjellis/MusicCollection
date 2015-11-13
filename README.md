@@ -9,9 +9,9 @@ This project includes:
 
 | Mapping: MIDI Note Numbers <=> IPN Notes |  |  |  |  |  |  |  |  |  |  |  | 
 
-| Octave | Note Numbers |  |  |  |  |  |  |  |  |  |  | 
+
+|Octave/Note Numbers|   C |C#/Db|  D  |D#/Eb|  E  |  F  |F#/Gb|  G  |G#/Ab|  A  |A#/Bb|  B  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-|   C |C#/Db|  D  |D#/Eb|  E  |  F  |F#/Gb|  G  |G#/Ab|  A  |A#/Bb|  B  |     |
 | -1  | 0   | 1   | 2   | 3   |  4  |  5  |  6  |  7  |  8  |  9  | 10  | 11  |
 |  0  | 12  | 13  | 14  | 15  | 16  | 17  | 18  | 19  | 20  | 21  | 22  | 23  |
 |  1  |  24 |  25 |  26 |  27 |  28 |  29 |  30 |  31 |  32 |  33 |  34 |  35 |
