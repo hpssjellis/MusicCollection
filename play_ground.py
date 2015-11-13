@@ -17,12 +17,16 @@ time_stamp = time_stamp.replace(" ", "_").replace(":", "_")
 
 # Create the MIDIFile Object
 MyMIDI = MIDIFile(1)
+MyMIDI2 = MIDIFile(2)
 # Add track name and tempo. The first argument to addTrackName and
 # addTempo is the time to write the event.
 track = 0
+base_track = 1
 start_time = float(0)
-MyMIDI.addTrackName(track, start_time, "Sample Track")
+MyMIDI.addTrackName(track, start_time, "Melody Track")
+MyMIDI2.addTrackName(base_track, start_time, "Base note Track")
 MyMIDI.addTempo(track, start_time, 120)
+MyMIDI2.addTempo(track, start_time, 120)
 f = FibonacciNumber()
 # Create seed base note with same duration
 channel = 0
@@ -36,21 +40,10 @@ set_length = code_set.length
 LENGTH = 40
 PLAYGROUND = "In_Key_Chorus"
 
-if __name__ == "__main__" and PLAYGROUND == "Check_Chords":
-    for number_notes in range(1):
-        chord = c_gen.gen_in_key_random_chords(60, 72)
-        print chord["base_note"], REVERSE_KEY_LOOK_UP[chord["base_note"] % 12]+chord["pattern"]
-        chorus = code_set.get_chord(chord["base_note"], chord["pattern"])
-        chorus = list(chorus)
-        random.shuffle(chorus)
-        for note in chorus:
-            # print note
-            MyMIDI.addNote(track, channel, note, start_time, duration, volume)
-            start_time += duration / 2
 
 if __name__ == "__main__" and PLAYGROUND == "In_Key_Chorus":
     for number_notes in range(LENGTH):
-        chord = c_gen.gen_in_key_random_chords(start=65, end=70)
+        chord = c_gen.gen_in_key_random_chords(start=65, end=66)
         print chord["base_note"], REVERSE_KEY_LOOK_UP[chord["base_note"] % 12]+chord["pattern"]
         chorus = code_set.get_chord(chord["base_note"], chord["pattern"])
         chorus = list(chorus)
@@ -59,32 +52,16 @@ if __name__ == "__main__" and PLAYGROUND == "In_Key_Chorus":
             # print note
             MyMIDI.addNote(track, channel, note, start_time, duration, volume)
             start_time += float(duration / 4)
+        MyMIDI2.addNote(base_track, channel, chord["base_note"], start_time, duration, volume)
 
-if __name__ == "__main__" and PLAYGROUND == "Chords_Random":
-    for number_notes in range(LENGTH):
-        base_note = c_gen.gen_single_random_base_note(40, 70)
-        chord = code_set.get_chord(base_note, random.randint(0, set_length - 1))
-        for note in chord:
-            # print note
-            MyMIDI.addNote(track, channel, note, start_time, duration, volume)
-        start_time += duration / 2
 
-if __name__ == "__main__" and PLAYGROUND == "Chords_Inkey":
-    for number_notes in range(LENGTH):
-        base_note = c_gen.gen_in_key_random_note(KEY["C"], 30, 50)
-        chord = code_set.get_chord(base_note, random.randint(0, set_length - 1))
-        for note in chord:
-            # print note
-            MyMIDI.addNote(track, channel, note, start_time, duration, volume)
-        start_time += 1
 
-if __name__ == "__main__" and PLAYGROUND == "Melody":
-    for number_notes in range(LENGTH):
-        note = c_gen.gen_in_key_random_note(KEY["C"], 40, 70)
-        MyMIDI.addNote(track, channel, note, start_time, duration, volume)
-        start_time += 0.5
+
 
 # And write it to disk.
-binfile = open("output/output"+time_stamp+".mid", 'wb')
-MyMIDI.writeFile(binfile)
-binfile.close()
+track1 = open("output/base.mid", 'w')
+track2 = open("output/melody.mid", 'w')
+MyMIDI.writeFile(track1)
+MyMIDI2.writeFile(track2)
+track1.close()
+track2.close()

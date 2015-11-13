@@ -21,6 +21,7 @@ class ChordsSet(object):
             "7+5": (self.shift,  self.shift + 4,  self.shift + 8, self.shift + 10),
             "7sus2": (self.shift,  self.shift + 3, self.shift + 7, self.shift + 10),
             "7sus4": (self.shift,  self.shift + 5, self.shift + 7, self.shift + 10),
+            "m7-5": (self.shift,  self.shift + 3, self.shift + 6, self.shift + 10),
             "6": (self.shift,  self.shift + 4, self.shift + 7, self.shift + 9),
             "m6": (self.shift,  self.shift + 3, self.shift + 7, self.shift + 9),
             "M9": (self.shift,  self.shift + 4, self.shift + 11, self.shift + 14),
@@ -30,7 +31,9 @@ class ChordsSet(object):
             "m-9": (self.shift,  self.shift + 3, self.shift + 7, self.shift + 10, self.shift + 13),
             "sus4": (self.shift,  self.shift + 5, self.shift + 7),
             "add9": (self.shift,  self.shift + 4, self.shift + 7, self.shift + 14),
-            "5": (self.shift,  self.shift + 7, self.shift + 12)
+            "5": (self.shift,  self.shift + 7, self.shift + 12),
+            "11": (self.shift,  self.shift + 4, self.shift + 7, self.shift + 10, self.shift + 14, self.shift + 17),
+            "m11": (self.shift,  self.shift + 3, self.shift + 7, self.shift + 10, self.shift + 14, self.shift + 17)
         }
         self.length = len(self.chords_set)
 

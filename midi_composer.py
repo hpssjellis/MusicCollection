@@ -33,12 +33,12 @@ class ChordsPatternGenerator(object):
         self.seed = seed
         self.in_key_chords_pattern = {
             0: ["M3", "sus2", "M7", "6", "M9", "sus4", "5"],
-            2: ["m3", "m7", "m6", "m9", "7"],
-            4: ["m3", "m7", "m6"],
+            2: ["m3", "m7", "m6", "m9", "m11", "7", "5"],
+            4: ["m3", "m7", "5", "sus4", "7sus4"],
             5: ["M3", "sus2", "M7", "6", "M9", "sus4", "5"],
-            7: ["M3", "sus2", "7", "7#5", "7sus4", "7sus2"],
-            9: ["m3", "m7", "m6", "7"],
-            11: ["dim", "dim7", "dim9"]
+            7: ["M3", "sus2", "7", "7sus4", "7sus2", "5", "11"],
+            9: ["m3", "m7", "7", "5"],
+            11: ["dim", "m7-5"]
         }
 
         self.set_seed()
